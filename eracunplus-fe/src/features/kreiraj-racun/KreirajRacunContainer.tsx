@@ -1,6 +1,8 @@
+import KreirajRacunLayout from "./KreirajRacunLayout"
+
 const KreirajRacunContainer = () => {
   return (
-    <div>KreirajRacunContainer</div>
+    <KreirajRacunLayout />
   )
 }
 
