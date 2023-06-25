@@ -4,20 +4,22 @@ import ExtensionIcon from "@mui/icons-material/Extension";
 import InfoIcon from "@mui/icons-material/Info";
 import MoreIcon from "@mui/icons-material/More";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
+import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
+import 'moment/locale/hr';
 import { memo, useCallback, useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
+import { Form } from "react-router-dom";
 import TabPanel from "../../components/tabs/TabPanel";
+import { axiosInstance } from "../../lib/axios";
 import Detalji from "./Detalji";
 import IdentifikacijskiPodaci from "./IdentifikacijskiPodaci";
 import Iznosi from "./Iznosi";
 import Ostalo from "./Ostalo";
 import Placanje from "./Placanje";
 import Stavke from "./Stavke";
-import { Button, Grid } from "@mui/material";
-import { Form } from "react-router-dom";
 import { initialRacun } from "./utils/initialValues";
 
 const KreirajRacunLayout = () => {
@@ -28,7 +30,8 @@ const KreirajRacunLayout = () => {
 
   const submit = useCallback(
     (values: FieldValues) => {
-      console.log(values)
+      const {datumIzdavanja, rokPlacanja, ...rest} = values;
+      axiosInstance.postForm("racuni", {...rest, datumIzdavanja: datumIzdavanja?.format("YYYY-MM-DD"), rokPlacanja: rokPlacanja?.format("YYYY-MM-DD")});
     },
     [],
   )
