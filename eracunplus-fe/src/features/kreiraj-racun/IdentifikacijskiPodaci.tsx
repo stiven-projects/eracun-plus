@@ -9,13 +9,13 @@ const IdentifikacijskiPodaci = () => {
       <Grid item xs={12} md={6}>
         <Paper elevation={3} style={{ padding: "32px" }}>
           <Typography variant="h5" component="h2">Izdavatelj računa</Typography>
-          <Sudionik />
+          <Sudionik sudionik='izdavatelj'/>
         </Paper>
       </Grid>
       <Grid item xs={12} md={6}>
         <Paper elevation={3} style={{ padding: "32px" }}>
           <Typography variant="h5" component="h2">Primatelj računa</Typography>
-          <Sudionik />
+          <Sudionik sudionik='primatelj'/>
         </Paper>
       </Grid>
     </Grid>

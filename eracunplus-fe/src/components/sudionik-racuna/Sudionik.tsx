@@ -1,12 +1,17 @@
-import { memo, useState } from 'react'
+import { Divider } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { MuiFileInput } from 'mui-file-input'
-import { Divider } from '@mui/material';
+import { MuiFileInput } from 'mui-file-input';
+import { memo } from 'react';
+import { Controller, useFormContext } from "react-hook-form";
 
-const Sudionik = () => {
+interface Props{
+  sudionik: "izdavatelj" | "primatelj"
+}
 
-  const [logo, setLogo] = useState<File | undefined>();
+const Sudionik = ({ sudionik }: Props) => {
+
+  const { control } = useFormContext();
 
   return (
     <Grid container spacing={2}>
@@ -15,30 +20,55 @@ const Sudionik = () => {
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="nazivTvrtke"
-          label="Naziv tvrtke"
-          required
+        <Controller
+          control={control}
+          name={`${sudionik}.nazivTvrtke`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Naziv tvrtke"
+              required
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="oib"
-          label="OIB ili Matični broj tvrtke"
-          required
+        <Controller
+          control={control}
+          name={`${sudionik}.oib`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="OIB ili Matični broj tvrtke"
+              required
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={12}>
-        <MuiFileInput
-          style={{ width: "100%" }}
-          id="logoTvrtke"
-          label="Logo tvrtke"
-          value={logo}
-          onChange={(newValue: File) => setLogo(newValue)}
+        <Controller
+          control={control}
+          name={`${sudionik}.logoTvrtke`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <MuiFileInput
+              style={{ width: "100%" }}
+              label="Logo tvrtke"
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
@@ -47,34 +77,75 @@ const Sudionik = () => {
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="adresa"
-          label="Adresa"
-          required
+        <Controller
+          control={control}
+          name={`${sudionik}.adresa`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Adresa"
+              required
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="drzava"
-          label="Država"
-          required
+        <Controller
+          control={control}
+          name={`${sudionik}.drzava`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Država"
+              required
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="postanskiBroj"
-          label="Poštanski broj"
-          required
+        <Controller
+          control={control}
+          name={`${sudionik}.postanskiBroj`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Poštanski broj"
+              required
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField style={{ width: "100%" }} id="grad" label="Grad" required />
+        <Controller
+          control={control}
+          name={`${sudionik}.grad`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Grad"
+              required
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
+        />
       </Grid>
 
       <Grid item xs={12}>
@@ -82,22 +153,53 @@ const Sudionik = () => {
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="kontakt"
-          label="Kontakt osoba"
+        <Controller
+          control={control}
+          name={`${sudionik}.kontaktOsoba`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Kontakt osoba"
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField style={{ width: "100%" }} id="email" label="Email adresa" />
+        <Controller
+          control={control}
+          name={`${sudionik}.email`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Email adresa"
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
+        />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="telefon"
-          label="Telefonski broj"
+        <Controller
+          control={control}
+          name={`${sudionik}.telefon`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Telefonski broj"
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
@@ -106,34 +208,70 @@ const Sudionik = () => {
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="pib"
-          label="Porezni identifikacijski broj"
+        <Controller
+          control={control}
+          name={`${sudionik}.PIB`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Porezni identifikacijski broj"
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="ibt"
-          label="Identifikacijski broj tvrtke"
+        <Controller
+          control={control}
+          name={`${sudionik}.IBT`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Identifikacijski broj tvrtke"
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="rbt"
-          label="Registracijski broj tvrtke"
+        <Controller
+          control={control}
+          name={`${sudionik}.RBT`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Registracijski broj tvrtke"
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
 
       <Grid item xs={6}>
-        <TextField
-          style={{ width: "100%" }}
-          id="djelatnost"
-          label="Oznaka djelatnosti"
+        <Controller
+          control={control}
+          name={`${sudionik}.djelatnost`}
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextField
+              style={{ width: "100%" }}
+              label="Oznaka djelatnosti"
+
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value}
+            />
+          )}
         />
       </Grid>
     </Grid>

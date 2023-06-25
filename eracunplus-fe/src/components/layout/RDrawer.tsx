@@ -72,14 +72,14 @@ const RDrawer = () => {
       </DrawerHeader>
       <Divider />
       <List>
-        {drawerPrimaryRoutes.map(({text, to, icon}) => (
-          <ListItemLink to={to} primary={text} icon={icon}/>
+        {drawerPrimaryRoutes.map(({text, to, icon, key}) => (
+          <ListItemLink key={key} to={to} primary={text} icon={icon}/>
         ))}
       </List>
       <Divider />
       <List>
-        {drawerSecondaryRoutes.map(({text, to, icon}) => (
-          <ListItemLink to={to} primary={text} icon={icon}/>
+        {drawerSecondaryRoutes.map(({text, to, icon, key}) => (
+          <ListItemLink key={key} to={to} primary={text} icon={icon}/>
         ))}
       </List>
     </Drawer>
