@@ -8,7 +8,7 @@ import { Button, Grid } from "@mui/material";
 import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import 'moment/locale/hr';
+import "moment/locale/hr";
 import { memo, useCallback, useState } from "react";
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { Form } from "react-router-dom";
@@ -22,19 +22,28 @@ import Placanje from "./Placanje";
 import Stavke from "./Stavke";
 import { initialRacun } from "./utils/initialValues";
 
+function toStavke(stavke?: any[]){
+  if(!stavke) return [];
+  return stavke.map(stavka => {
+    const {naziv, opis, kolicina, jCijena, stopa, popust } = stavka;
+    return {naziv, opis, kolicina, jCijena, stopa, popust};
+  });
+}
+
 const KreirajRacunLayout = () => {
-  
-  const methods = useForm({defaultValues: initialRacun});
-  
+  const methods = useForm({ defaultValues: initialRacun });
+
   const [carouselIndex, setCarouselIndex] = useState(0);
 
-  const submit = useCallback(
-    (values: FieldValues) => {
-      const {datumIzdavanja, rokPlacanja, ...rest} = values;
-      axiosInstance.postForm("racuni", {...rest, datumIzdavanja: datumIzdavanja?.format("YYYY-MM-DD"), rokPlacanja: rokPlacanja?.format("YYYY-MM-DD")});
-    },
-    [],
-  )
+  const submit = useCallback((values: FieldValues) => {
+    const { datumIzdavanja, rokPlacanja, stavke, ...rest } = values;
+    axiosInstance.post("racuni", {
+      ...rest,
+      stavke: toStavke(stavke),
+      datumIzdavanja: datumIzdavanja?.format("YYYY-MM-DD"),
+      rokPlacanja: rokPlacanja?.format("YYYY-MM-DD"),
+    });
+  }, []);
 
   return (
     <FormProvider {...methods}>

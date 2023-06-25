@@ -1,7 +1,6 @@
 package hr.stiven.eracunplus.rest.model;
 
-import org.springframework.web.multipart.MultipartFile;
-
-public record Sudionik(String nazivTvrtke, String oib, MultipartFile logo, String adresa, String drzava,
-		String postanskiBroj, String grad, String kontaktOsoba, String email, String pib, String ibt, String rbt,
-		String djelatnost) {}
+public record Sudionik(String nazivTvrtke, String oib, String adresa, String drzava,
+        String postanskiBroj, String grad, String kontaktOsoba, String email, String telefon,
+        String PIB, String IBT, String RBT, String djelatnost) {
+}
