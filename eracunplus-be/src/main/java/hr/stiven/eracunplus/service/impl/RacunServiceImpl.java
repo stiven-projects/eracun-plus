@@ -7,15 +7,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import hr.stiven.eracunplus.entity.RacunEntity;
 import hr.stiven.eracunplus.entity.SudionikEntity;
+import hr.stiven.eracunplus.exception.GloballyHandledException;
 import hr.stiven.eracunplus.mapper.ListaRacunaParametersMapper;
 import hr.stiven.eracunplus.mapper.RacunEntityMapper;
 import hr.stiven.eracunplus.mapper.RacunListItemMapper;
+import hr.stiven.eracunplus.mapper.RacunMapper;
 import hr.stiven.eracunplus.mapper.StavkaEntityMapper;
 import hr.stiven.eracunplus.mapper.SudionikEntityMapper;
 import hr.stiven.eracunplus.repository.RacunRepository;
@@ -58,6 +61,18 @@ public class RacunServiceImpl implements RacunService {
 	
 	@Autowired
 	ListaRacunaParametersMapper listaRacunaParametersMapper;
+	
+	@Autowired
+	RacunMapper racunMapper;
+	
+	@Override
+	public Racun getRacun(Long id) {
+		RacunEntity racunEntity = racunRepository
+				.findById(id)
+				.orElseThrow(() -> new GloballyHandledException("Nije pronađen račun s dobivenim identifikatorom", HttpStatus.NOT_FOUND));
+		
+		return racunMapper.toRacun(racunEntity);
+	}
 	
 	@Override
 	public ListaRacunaResponse getListaRacuna(ListaRacunaRequest listaRacunaRequest) {

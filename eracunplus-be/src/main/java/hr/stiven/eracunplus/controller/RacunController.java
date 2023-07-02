@@ -5,10 +5,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,10 +26,10 @@ public class RacunController {
 	@Autowired
 	RacunService racunService;
 	
-	@GetMapping("/detalji")
-	private ResponseEntity<Object> getRacun(@RequestParam Long id){
+	@GetMapping("/detalji/{id}")
+	private ResponseEntity<Object> getRacun(@PathVariable Long id){
 		log.info("Dohvat detalja računa");
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(racunService.getRacun(id));
 	}
 	
 	@PostMapping("/lista")

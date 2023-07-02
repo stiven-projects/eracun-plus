@@ -16,6 +16,7 @@ const Naslovnica = Loadable(lazy(() => import("../features/naslovnica/Naslovnica
 const KreirajRacun = Loadable(lazy(() => import("../features/kreiraj-racun/KreirajRacunContainer")));
 const UlazniRacuni = Loadable(lazy(() => import("../features/lista-ulaznih-racuna/UlazniRacuniContainer")));
 const IzlazniRacuni = Loadable(lazy(() => import("../features/lista-izlaznih-racuna/IzlazniRacuniContainer")));
+const DetaljiRacuna = Loadable(lazy(() => import("../features/detalji-racuna/DetaljiRacunaContainer")));
 
 
 const routes: RouteObject[] = [
@@ -34,6 +35,10 @@ const routes: RouteObject[] = [
   {
     path: "/izlazni",
     element: <IzlazniRacuni />
+  },
+  {
+    path: "/detalji",
+    element: <DetaljiRacuna />
   }
 ]
 
@@ -49,6 +54,7 @@ export const pageNames: { [key: string]: string } = {
   '/kreiraj': 'Kreiraj račun',
   '/ulazni': 'Ulazni računi',
   '/izlazni': 'Izlazni računi',
+  '/detalji': 'Detalji računa',
 };
 
 export const router: any = createBrowserRouter(layoutRoute);

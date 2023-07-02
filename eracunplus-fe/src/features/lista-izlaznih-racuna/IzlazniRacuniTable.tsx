@@ -25,10 +25,11 @@ function mapValuta(valuta: any){
 interface Props{
   data: any;
   loading: boolean;
-  changeTableData: (value: any) => void
+  changeTableData: (value: any) => void;
+  onRowClick: (e: any) => void;
 }
 
-const IzlazniRacuniTable = ({ data, loading, changeTableData }: Props) => {
+const IzlazniRacuniTable = ({ data, loading, changeTableData, onRowClick }: Props) => {
   return (
     <Grid item xs={12}>
       <Paper elevation={3} style={{ padding: "32px" }}>
@@ -43,8 +44,8 @@ const IzlazniRacuniTable = ({ data, loading, changeTableData }: Props) => {
           <Grid item xs={12}>
             { data?.data &&
             <DataGrid
-            rows={data?.data}
-            rowCount={data?.totalData}
+              rows={data?.data}
+              rowCount={data?.totalData}
               columns={columns}
               loading={loading}
               initialState={{
@@ -55,6 +56,7 @@ const IzlazniRacuniTable = ({ data, loading, changeTableData }: Props) => {
               disableColumnMenu
               onPaginationModelChange={changeTableData}
               onSortModelChange={model => changeTableData(model[0])}
+              onRowClick={onRowClick}
             />}
           </Grid>
         </Grid>

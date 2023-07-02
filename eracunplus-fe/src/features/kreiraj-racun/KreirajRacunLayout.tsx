@@ -9,45 +9,31 @@ import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import "moment/locale/hr";
-import { memo, useCallback, useState } from "react";
-import { FieldValues, FormProvider, useForm } from "react-hook-form";
+import { memo, useState } from "react";
+import { FieldValues, FormProvider, UseFormReturn } from "react-hook-form";
 import { Form } from "react-router-dom";
 import TabPanel from "../../components/tabs/TabPanel";
-import { axiosInstance } from "../../lib/axios";
 import Detalji from "./Detalji";
 import IdentifikacijskiPodaci from "./IdentifikacijskiPodaci";
 import Iznosi from "./Iznosi";
 import Ostalo from "./Ostalo";
 import Placanje from "./Placanje";
 import Stavke from "./Stavke";
-import { initialRacun } from "./utils/initialValues";
+import styles from "./styles/KreirajRacunLayout.module.css";
 
-function toStavke(stavke?: any[]){
-  if(!stavke) return [];
-  return stavke.map(stavka => {
-    const {naziv, opis, kolicina, jCijena, stopa, popust } = stavka;
-    return {naziv, opis, kolicina, jCijena, stopa, popust};
-  });
+interface Props{
+  methods: UseFormReturn<any, any, undefined>
+  disable?: boolean;
+  submit?: (values: FieldValues) => void;
 }
 
-const KreirajRacunLayout = () => {
-  const methods = useForm({ defaultValues: initialRacun });
+const KreirajRacunLayout = ({methods, disable, submit}: Props) => {
 
   const [carouselIndex, setCarouselIndex] = useState(0);
 
-  const submit = useCallback((values: FieldValues) => {
-    const { datumIzdavanja, rokPlacanja, stavke, ...rest } = values;
-    axiosInstance.post("racuni", {
-      ...rest,
-      stavke: toStavke(stavke),
-      datumIzdavanja: datumIzdavanja?.format("YYYY-MM-DD"),
-      rokPlacanja: rokPlacanja?.format("YYYY-MM-DD"),
-    });
-  }, []);
-
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={methods.handleSubmit(submit)}>
+      <Form onSubmit={submit ? methods.handleSubmit(submit) : undefined}>
         <Box sx={{ flexGrow: 1 }}>
           <Grid container justifyContent={"space-between"}>
             <Grid item>
@@ -64,31 +50,35 @@ const KreirajRacunLayout = () => {
               </Tabs>
             </Grid>
 
-            <Grid item>
-              <Button type="submit" variant="contained" color="success">
-                Spremi račun
-              </Button>
-            </Grid>
+            { !disable &&
+              <Grid item>
+                <Button type="submit" variant="contained" color="success">
+                  Spremi račun
+                </Button>
+              </Grid>
+            }
           </Grid>
 
-          <TabPanel index={0} value={carouselIndex}>
-            <IdentifikacijskiPodaci />
-          </TabPanel>
-          <TabPanel index={1} value={carouselIndex}>
-            <Detalji />
-          </TabPanel>
-          <TabPanel index={2} value={carouselIndex}>
-            <Stavke />
-          </TabPanel>
-          <TabPanel index={3} value={carouselIndex}>
-            <Iznosi />
-          </TabPanel>
-          <TabPanel index={4} value={carouselIndex}>
-            <Placanje />
-          </TabPanel>
-          <TabPanel index={5} value={carouselIndex}>
-            <Ostalo />
-          </TabPanel>
+          <fieldset disabled={disable} className={styles.fieldsetCss}>
+            <TabPanel index={0} value={carouselIndex}>
+              <IdentifikacijskiPodaci />
+            </TabPanel>
+            <TabPanel index={1} value={carouselIndex}>
+              <Detalji />
+            </TabPanel>
+            <TabPanel index={2} value={carouselIndex}>
+              <Stavke />
+            </TabPanel>
+            <TabPanel index={3} value={carouselIndex}>
+              <Iznosi />
+            </TabPanel>
+            <TabPanel index={4} value={carouselIndex}>
+              <Placanje />
+            </TabPanel>
+            <TabPanel index={5} value={carouselIndex}>
+              <Ostalo />
+            </TabPanel>
+          </fieldset>
         </Box>
       </Form>
     </FormProvider>

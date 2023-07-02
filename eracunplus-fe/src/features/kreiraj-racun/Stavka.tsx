@@ -155,6 +155,7 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
         <Controller
           control={control}
           name={`${namePrefix}.stopa`}
+          defaultValue={20}
           render={({ field: { onChange, onBlur, value } }) => (
             <FormControl fullWidth required>
               <InputLabel id="stopa">Porezna stopa</InputLabel>
@@ -165,7 +166,6 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
-                defaultValue={20}
               >
                 {porezneStope.map((stopa) => (
                   <MenuItem key={stopa.value} value={stopa.value}>
