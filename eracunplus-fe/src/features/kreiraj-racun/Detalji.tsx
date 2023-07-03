@@ -6,13 +6,13 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { memo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import FormDatePicker from "../../components/form-items/FormDatePicker";
 
 const Detalji = () => {
 
@@ -54,7 +54,7 @@ const Detalji = () => {
                 name="datumIzdavanja"
                 render={({ field: { onChange, value } }) => (
                   <FormControl fullWidth required>
-                    <DatePicker
+                    <FormDatePicker
                       label="Datum izdavanja *"
                       onChange={onChange}
                       value={value}
@@ -70,7 +70,7 @@ const Detalji = () => {
                 name="rokPlacanja"
                 render={({ field: { onChange, value } }) => (
                   <FormControl fullWidth>
-                    <DatePicker 
+                    <FormDatePicker 
                       label="Rok plaćanja"
                       onChange={onChange}
                       value={value}
