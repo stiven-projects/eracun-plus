@@ -14,7 +14,6 @@ const LayoutContainer = Loadable(lazy(() => import("../features/layout/LayoutCon
 
 const Naslovnica = Loadable(lazy(() => import("../features/naslovnica/Naslovnica")));
 const KreirajRacun = Loadable(lazy(() => import("../features/kreiraj-racun/KreirajRacunContainer")));
-const UlazniRacuni = Loadable(lazy(() => import("../features/lista-ulaznih-racuna/UlazniRacuniContainer")));
 const IzlazniRacuni = Loadable(lazy(() => import("../features/lista-izlaznih-racuna/IzlazniRacuniContainer")));
 const DetaljiRacuna = Loadable(lazy(() => import("../features/detalji-racuna/DetaljiRacunaContainer")));
 
@@ -27,10 +26,6 @@ const routes: RouteObject[] = [
   {
     path: "/kreiraj",
     element: <KreirajRacun />
-  },
-  {
-    path: "/ulazni",
-    element: <UlazniRacuni />
   },
   {
     path: "/izlazni",
@@ -52,8 +47,7 @@ const layoutRoute: RouteObject[] = [
 
 export const pageNames: { [key: string]: string } = {
   '/kreiraj': 'Kreiraj račun',
-  '/ulazni': 'Ulazni računi',
-  '/izlazni': 'Izlazni računi',
+  '/izlazni': 'Računi',
   '/detalji': 'Detalji računa',
 };
 

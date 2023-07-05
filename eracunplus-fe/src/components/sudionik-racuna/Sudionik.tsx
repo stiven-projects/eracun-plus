@@ -1,7 +1,6 @@
 import { Divider } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { MuiFileInput } from 'mui-file-input';
 import { memo } from 'react';
 import { Controller, useFormContext } from "react-hook-form";
 
@@ -46,23 +45,6 @@ const Sudionik = ({ sudionik }: Props) => {
               style={{ width: "100%" }}
               label="OIB ili Matični broj tvrtke"
               required
-
-              onChange={onChange}
-              onBlur={onBlur}
-              value={value}
-            />
-          )}
-        />
-      </Grid>
-
-      <Grid item xs={12}>
-        <Controller
-          control={control}
-          name={`${sudionik}.logoTvrtke`}
-          render={({field: {onChange, onBlur, value}}) => (
-            <MuiFileInput
-              style={{ width: "100%" }}
-              label="Logo tvrtke"
 
               onChange={onChange}
               onBlur={onBlur}
