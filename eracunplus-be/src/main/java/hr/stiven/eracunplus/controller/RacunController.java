@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import hr.stiven.eracunplus.rest.model.ListaRacunaRequest;
 import hr.stiven.eracunplus.rest.model.Racun;
 import hr.stiven.eracunplus.service.RacunService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -33,7 +34,7 @@ public class RacunController {
 	}
 	
 	@PostMapping("/lista")
-	private ResponseEntity<Object> postRacuni(@RequestBody ListaRacunaRequest listaRacunaRequest){
+	private ResponseEntity<Object> postRacuni(@Valid @RequestBody ListaRacunaRequest listaRacunaRequest){
 		log.info("Dohvat liste računa");
 		return ResponseEntity.ok(racunService.getListaRacuna(listaRacunaRequest));
 	}

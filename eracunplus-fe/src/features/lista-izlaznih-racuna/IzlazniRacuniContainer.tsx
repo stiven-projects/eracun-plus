@@ -13,7 +13,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schemas/ValidationSchema";
 
 const IzlazniRacuniContainer = () => {
+  // Ako treba testirat backend provjere preko UI može se zakomentirati donja linija i odkomentirati linija ispod
   const methods = useForm({ resolver: yupResolver(schema), mode: "onChange"});
+  //const methods = useForm();
 
   const [formData, setFormData] = useState({});
   const [tableData, setTableData] = useState({
