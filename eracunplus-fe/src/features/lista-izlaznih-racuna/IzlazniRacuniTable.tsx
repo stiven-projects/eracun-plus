@@ -24,12 +24,13 @@ function mapValuta(valuta: any){
 
 interface Props{
   data: any;
+  tableData: GridSortItem & GridPaginationModel;
   loading: boolean;
   changeTableData: (value: any) => void;
   onRowClick: (e: any) => void;
 }
 
-const IzlazniRacuniTable = ({ data, loading, changeTableData, onRowClick }: Props) => {
+const IzlazniRacuniTable = ({ data, tableData, loading, changeTableData, onRowClick }: Props) => {
   return (
     <Grid item xs={12}>
       <Paper elevation={3} style={{ padding: "32px" }}>
@@ -52,6 +53,8 @@ const IzlazniRacuniTable = ({ data, loading, changeTableData, onRowClick }: Prop
                 sorting: {sortModel: [defaultSortModel]},
                 pagination: {paginationModel: defaultPaginationModel}
               }}
+              paginationModel={tableData}
+              sortModel={[tableData]}
               paginationMode="server"
               disableColumnMenu
               onPaginationModelChange={changeTableData}

@@ -48,10 +48,11 @@ const IzlazniRacuniContainer = () => {
   }, []);
 
   const changeTableData = useCallback((value: any) => {
+    const _value = value ? value : {field: tableData.field, sort: tableData.sort === 'asc' ? 'desc' : 'asc' }
     setTableData((prev) => {
-      return { ...prev, ...value };
+      return { ...prev, ..._value };
     });
-  }, []);
+  }, [tableData]);
 
   const onRowClick = useCallback(({ id }: any) => {
     navigate("/detalji", {state: id});
@@ -64,6 +65,7 @@ const IzlazniRacuniContainer = () => {
           <IzlazniRacuniFilter />
           <IzlazniRacuniTable
             data={data}
+            tableData={tableData}
             loading={isLoading || isFetching}
             changeTableData={changeTableData}
             onRowClick={onRowClick}
