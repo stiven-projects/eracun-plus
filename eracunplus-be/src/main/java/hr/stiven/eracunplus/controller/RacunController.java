@@ -40,7 +40,7 @@ public class RacunController {
 	}
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	private ResponseEntity<Object> postRacun(@RequestBody Racun racun){
+	private ResponseEntity<Object> postRacun(@Valid @RequestBody Racun racun){
 		log.info("Spremanje računa");
 		Long idRacuna = racunService.spremiRacun(racun);
 		return ResponseEntity.created(

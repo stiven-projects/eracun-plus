@@ -15,7 +15,9 @@ function toStavke(stavke?: any[]){
 
 
 const KreirajRacunContainer = () => {
+  // Ako treba testirat backend provjere preko UI može se zakomentirati donja linija i odkomentirati linija ispod
   const methods = useForm({ resolver: yupResolver(schema), mode: "onChange"});
+  //const methods = useForm();
 
   const submit = useCallback((values: FieldValues) => {
     const { datumIzdavanja, rokPlacanja, stavke, ...rest } = values;

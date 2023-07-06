@@ -164,10 +164,18 @@ export const schema = yup
           opis: yup
             .string()
             .max(255, "Opis stavke može sadržavati najviše 255 znakova"),
-          kolicina: yup.number().required("Količina stavke je obavezna"),
-          jCijena: yup.number().required("Jedinična cijena stavke je obavezna"),
-          stopa: yup.number().required("Stopa stavke je obavezna"),
-          popust: yup.number(),
+          kolicina: yup.number().typeError("Količina stavke je obavezna").required("Količina stavke je obavezna").positive('Količina stavke mora biti pozitivan broj'),
+          jCijena: yup.number().typeError("Jedinična cijena stavke je obavezna").required("Jedinična cijena stavke je obavezna").positive('Jedinična cijena stavke mora biti pozitivan broj'),
+          stopa: yup.number().typeError("Stopa stavke je obavezna").required("Stopa stavke je obavezna").positive('Stopa stavke mora biti pozitivan broj'),
+          // popust: yup.number().nullable().transform((_, val) => val === Number(val) ? val : null).positive('Popust mora biti pozitivan broj'),
+          popust: yup.string().test({
+            message: "Popust mora biti pozitivan broj",
+            name: "positiveWhenDefined",
+            test: value => {
+              if (!value || isNaN(value as any)) return true;
+              return +value >= 0;
+            }
+          }),
         })
       )
       .test("exists", "Potrebno je unijeti barem jednu stavku", function (value){
