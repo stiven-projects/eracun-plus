@@ -3,13 +3,15 @@ import Grid from "@mui/material/Grid";
 import { memo } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useFormState } from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { ErrorMessage } from "@hookform/error-message";
 
 const IzlazniRacuniFilter = () => {
 
   const { control } = useFormContext();
+  const { errors } = useFormState({control});
 
   return (
     <Grid item xs={12}>
@@ -34,6 +36,9 @@ const IzlazniRacuniFilter = () => {
                   onChange={onChange}
                   onBlur={onBlur}
                   value={value}
+
+                  error={!!errors?.nazivIzdavatelja}
+                  helperText={<ErrorMessage errors={errors} name={`nazivIzdavatelja`}/>}
                 />
               )}
             />
@@ -51,6 +56,9 @@ const IzlazniRacuniFilter = () => {
                   onChange={onChange}
                   onBlur={onBlur}
                   value={value}
+
+                  error={!!errors?.nazivPrimatelja}
+                  helperText={<ErrorMessage errors={errors} name={`nazivPrimatelja`}/>}
                 />
               )}
             />
@@ -68,6 +76,9 @@ const IzlazniRacuniFilter = () => {
                   onChange={onChange}
                   onBlur={onBlur}
                   value={value}
+
+                  error={!!errors?.brojRacuna}
+                  helperText={<ErrorMessage errors={errors} name={`brojRacuna`}/>}
                 />
               )}
             />
@@ -83,7 +94,11 @@ const IzlazniRacuniFilter = () => {
                     label="Datum izdavanja"
                     onChange={onChange}
                     value={value}
-                    slotProps={{ textField: { size: "small" } }}
+                    slotProps={{ textField: { 
+                      size: "small",
+                      error: !!errors?.datumIzdavanja,
+                      helperText: <ErrorMessage errors={errors} name={`datumIzdavanja`}/>
+                    } }}
                   />
                 </FormControl>
               )}
@@ -100,7 +115,11 @@ const IzlazniRacuniFilter = () => {
                     label="Rok plaćanja"
                     onChange={onChange}
                     value={value}
-                    slotProps={{ textField: { size: "small" } }}
+                    slotProps={{ textField: { 
+                      size: "small",
+                      error: !!errors?.rokPlacanja,
+                      helperText: <ErrorMessage errors={errors} name={`rokPlacanja`}/>
+                    } }}
                   />
                 </FormControl>
               )}

@@ -9,11 +9,11 @@ import IzlazniRacuniTable, {
   defaultPaginationModel,
   defaultSortModel,
 } from "./IzlazniRacuniTable";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./schemas/ValidationSchema";
 
 const IzlazniRacuniContainer = () => {
-  const methods = useForm({
-    defaultValues: { nazivPrimatelja: undefined, valuta: undefined },
-  });
+  const methods = useForm({ resolver: yupResolver(schema), mode: "onChange"});
 
   const [formData, setFormData] = useState({});
   const [tableData, setTableData] = useState({
