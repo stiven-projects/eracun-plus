@@ -1,10 +1,12 @@
-import { Button, Grid, Select, TextField, Typography } from "@mui/material";
+import { ErrorMessage } from "@hookform/error-message";
+import { Button, FormHelperText, Grid, Select, TextField, Typography } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import { memo } from "react";
 
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { Controller, useFormContext, useWatch, useFormState, FieldErrors } from "react-hook-form";
+import { TStavka } from "./types/Racun";
 
 const porezneStope: { label: string; value: number }[] = [
   {
@@ -40,12 +42,16 @@ function uLocale(iznos: number) {
 interface Props {
   index: number;
   namePrefix: string;
+  canDelete: boolean;
 
   remove: () => void;
 }
 
-const Stavka = ({ index, namePrefix, remove }: Props) => {
+const Stavka = ({ index, namePrefix, canDelete, remove }: Props) => {
   const { control } = useFormContext();
+
+  const { errors } = useFormState({control});
+  const stavkaErrors: FieldErrors<TStavka> = (errors?.["stavke"] as any)?.[index] as FieldErrors<TStavka>;
 
   const kolicina = useWatch({ name: namePrefix + ".kolicina", control });
   const jCijena = useWatch({ name: namePrefix + ".jCijena", control });
@@ -66,11 +72,13 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
               Stavka {index + 1}
             </Typography>
           </Grid>
-          <Grid item>
-            <Button color="error" onClick={remove}>
-              Ukloni
-            </Button>
-          </Grid>
+          {canDelete && (
+            <Grid item>
+              <Button color="error" onClick={remove}>
+                Ukloni
+              </Button>
+            </Grid>
+          )}
         </Grid>
       </Grid>
 
@@ -81,11 +89,14 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
           render={({ field: { onChange, onBlur, value } }) => (
             <TextField
               style={{ width: "100%" }}
-              label="Naziv stavke"
-              required
+              label="Naziv stavke *"
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+              error={!!stavkaErrors?.naziv}
+              helperText={
+                <ErrorMessage errors={errors} name={`${namePrefix}.naziv`} />
+              }
             />
           )}
         />
@@ -102,6 +113,10 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+              error={!!stavkaErrors?.opis}
+              helperText={
+                <ErrorMessage errors={errors} name={`${namePrefix}.opis`} />
+              }
             />
           )}
         />
@@ -115,11 +130,14 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
             <TextField
               type="number"
               style={{ width: "100%" }}
-              label="Količina"
-              required
+              label="Količina *"
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+              error={!!stavkaErrors?.kolicina}
+              helperText={
+                <ErrorMessage errors={errors} name={`${namePrefix}.kolicina`} />
+              }
             />
           )}
         />
@@ -133,11 +151,14 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
             <TextField
               type="number"
               style={{ width: "100%" }}
-              label="Jedinična cijena"
-              required
+              label="Jedinična cijena *"
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+              error={!!stavkaErrors?.jCijena}
+              helperText={
+                <ErrorMessage errors={errors} name={`${namePrefix}.jCijena`} />
+              }
             />
           )}
         />
@@ -157,12 +178,12 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
           name={`${namePrefix}.stopa`}
           defaultValue={20}
           render={({ field: { onChange, onBlur, value } }) => (
-            <FormControl fullWidth required>
-              <InputLabel id="stopa">Porezna stopa</InputLabel>
+            <FormControl fullWidth error={!!stavkaErrors?.stopa}>
+              <InputLabel id="stopa">Porezna stopa *</InputLabel>
               <Select
                 labelId="stopa-label"
                 id="stopa"
-                label="Porezna stopa"
+                label="Porezna stopa *"
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value}
@@ -173,6 +194,11 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
                   </MenuItem>
                 ))}
               </Select>
+              <ErrorMessage
+                errors={errors}
+                name={`${namePrefix}.stopa`}
+                as={<FormHelperText />}
+              />
             </FormControl>
           )}
         />
@@ -198,6 +224,10 @@ const Stavka = ({ index, namePrefix, remove }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+              error={!!stavkaErrors?.popust}
+              helperText={
+                <ErrorMessage errors={errors} name={`${namePrefix}.popust`} />
+              }
             />
           )}
         />

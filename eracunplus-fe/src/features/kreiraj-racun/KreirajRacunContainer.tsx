@@ -1,8 +1,9 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useCallback } from 'react';
 import { FieldValues, useForm } from "react-hook-form";
-import KreirajRacunLayout from "./KreirajRacunLayout"
-import { initialRacun } from "./utils/initialValues";
-import { useCallback } from 'react'
 import { axiosInstance } from "../../lib/axios";
+import KreirajRacunLayout from "./KreirajRacunLayout";
+import { schema } from "./schemas/ValidationSchema";
 
 function toStavke(stavke?: any[]){
   if(!stavke) return [];
@@ -14,8 +15,7 @@ function toStavke(stavke?: any[]){
 
 
 const KreirajRacunContainer = () => {
-
-  const methods = useForm({ defaultValues: initialRacun });
+  const methods = useForm({ resolver: yupResolver(schema), mode: "onChange"});
 
   const submit = useCallback((values: FieldValues) => {
     const { datumIzdavanja, rokPlacanja, stavke, ...rest } = values;
@@ -26,7 +26,7 @@ const KreirajRacunContainer = () => {
       rokPlacanja: rokPlacanja?.format("YYYY-MM-DD"),
     });
   }, []);
-
+  
   return (
     <KreirajRacunLayout methods={methods} submit={submit}/>
   )

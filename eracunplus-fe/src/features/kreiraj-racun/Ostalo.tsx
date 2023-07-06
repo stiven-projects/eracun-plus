@@ -1,10 +1,12 @@
+import { ErrorMessage } from "@hookform/error-message";
 import { Grid, Typography, Paper, Divider, TextField } from "@mui/material";
 import { memo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useFormState } from "react-hook-form";
 
 const Ostalo = () => {
 
   const { control } = useFormContext();
+  const { errors } = useFormState({control});
 
   return (
     <Grid container spacing={2}>
@@ -30,6 +32,9 @@ const Ostalo = () => {
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
+
+                    error={!!errors?.referenca}
+                    helperText={<ErrorMessage errors={errors} name={`referenca`}/>}
                   />
                 )}
               />
@@ -48,6 +53,9 @@ const Ostalo = () => {
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
+
+                    error={!!errors?.dodatnaNapomena}
+                    helperText={<ErrorMessage errors={errors} name={`dodatnaNapomena`}/>}
                   />
                 )}
               />
@@ -66,6 +74,9 @@ const Ostalo = () => {
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
+
+                    error={!!errors?.specificniZahtjevi}
+                    helperText={<ErrorMessage errors={errors} name={`specificniZahtjevi`}/>}
                   />
                 )}
               />
@@ -84,6 +95,9 @@ const Ostalo = () => {
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
+
+                    error={!!errors?.ostaleInformacije}
+                    helperText={<ErrorMessage errors={errors} name={`ostaleInformacije`}/>}
                   />
                 )}
               />

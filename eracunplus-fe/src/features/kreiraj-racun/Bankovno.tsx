@@ -1,13 +1,15 @@
+import { ErrorMessage } from "@hookform/error-message";
 import {
   Grid,
   TextField
 } from "@mui/material";
 import { memo } from 'react'
-import { Controller, useFormContext } from 'react-hook-form'
+import { Controller, useFormContext, useFormState } from 'react-hook-form'
 
 const Bankovno = () => {
   
   const { control } = useFormContext();
+  const { errors } = useFormState({control});
 
   return (
     <>
@@ -23,6 +25,9 @@ const Bankovno = () => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!errors?.racunP}
+              helperText={<ErrorMessage errors={errors} name={`racunP`}/>}
             />
           )}
         />
@@ -40,6 +45,9 @@ const Bankovno = () => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!errors?.iban}
+              helperText={<ErrorMessage errors={errors} name={`iban`}/>}
             />
           )}
         />
@@ -57,6 +65,9 @@ const Bankovno = () => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!errors?.swift}
+              helperText={<ErrorMessage errors={errors} name={`swift`}/>}
             />
           )}
         />

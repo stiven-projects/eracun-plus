@@ -1,6 +1,7 @@
 import {
   Divider,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -9,9 +10,10 @@ import {
   Typography
 } from "@mui/material";
 import { memo, useMemo } from "react";
-import { Controller, useFormContext, useWatch } from "react-hook-form";
+import { Controller, useFormContext, useWatch, useFormState } from "react-hook-form";
 import Bankovno from "./Bankovno";
 import Karticno from "./Karticno";
+import { ErrorMessage } from "@hookform/error-message";
 
 const naciniPlacanja = [
   {
@@ -33,6 +35,7 @@ const Placanje = () => {
   const { control } = useFormContext();
 
   const placanje = useWatch({name: "placanje", control});
+  const { errors } = useFormState({name: "placanje",control});
 
   const placanjeComponent = useMemo(() => {
     switch (placanje) {
@@ -65,12 +68,12 @@ const Placanje = () => {
                     control={control}
                     name={`placanje`}
                     render={({ field: { onChange, onBlur, value } }) => (
-                      <FormControl fullWidth required>
-                        <InputLabel id="placanje">Način plaćanja</InputLabel>
+                      <FormControl fullWidth error={!!errors?.placanje}>
+                        <InputLabel id="placanje">Način plaćanja *</InputLabel>
                         <Select
                           labelId="placanje-label"
                           id="placanje"
-                          label="Način plaćanja"
+                          label="Način plaćanja *"
                           onChange={onChange}
                           onBlur={onBlur}
                           value={value}
@@ -81,6 +84,7 @@ const Placanje = () => {
                             </MenuItem>
                           ))}
                         </Select>
+                        <ErrorMessage errors={errors} name={`placanje`} as={<FormHelperText />}/>
                       </FormControl>
                     )}
                   />

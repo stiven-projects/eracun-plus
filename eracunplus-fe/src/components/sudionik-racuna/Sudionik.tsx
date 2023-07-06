@@ -2,7 +2,9 @@ import { Divider } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { memo } from 'react';
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, FieldErrors, useFormContext, useFormState } from "react-hook-form";
+import { TSudionik } from '../../features/kreiraj-racun/types/Racun';
+import { ErrorMessage } from '@hookform/error-message';
 
 interface Props{
   sudionik: "izdavatelj" | "primatelj"
@@ -11,6 +13,9 @@ interface Props{
 const Sudionik = ({ sudionik }: Props) => {
 
   const { control } = useFormContext();
+  const { errors } = useFormState({control, name: sudionik});
+
+  const sudionikErrors: FieldErrors<TSudionik> = errors?.[sudionik] as FieldErrors<TSudionik>;
 
   return (
     <Grid container spacing={2}>
@@ -25,12 +30,14 @@ const Sudionik = ({ sudionik }: Props) => {
           render={({field: {onChange, onBlur, value}}) => (
             <TextField
               style={{ width: "100%" }}
-              label="Naziv tvrtke"
-              required
+              label="Naziv tvrtke *"
 
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.nazivTvrtke}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.nazivTvrtke`}/>}
             />
           )}
         />
@@ -43,12 +50,14 @@ const Sudionik = ({ sudionik }: Props) => {
           render={({field: {onChange, onBlur, value}}) => (
             <TextField
               style={{ width: "100%" }}
-              label="OIB ili Matični broj tvrtke"
-              required
+              label="OIB ili Matični broj tvrtke *"
 
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.oib}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.oib`}/>}
             />
           )}
         />
@@ -65,12 +74,14 @@ const Sudionik = ({ sudionik }: Props) => {
           render={({field: {onChange, onBlur, value}}) => (
             <TextField
               style={{ width: "100%" }}
-              label="Adresa"
-              required
+              label="Adresa *"
 
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.adresa}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.adresa`}/>}
             />
           )}
         />
@@ -83,12 +94,14 @@ const Sudionik = ({ sudionik }: Props) => {
           render={({field: {onChange, onBlur, value}}) => (
             <TextField
               style={{ width: "100%" }}
-              label="Država"
-              required
+              label="Država *"
 
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.drzava}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.drzava`}/>}
             />
           )}
         />
@@ -101,12 +114,14 @@ const Sudionik = ({ sudionik }: Props) => {
           render={({field: {onChange, onBlur, value}}) => (
             <TextField
               style={{ width: "100%" }}
-              label="Poštanski broj"
-              required
+              label="Poštanski broj *"
 
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.postanskiBroj}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.postanskiBroj`}/>}
             />
           )}
         />
@@ -119,12 +134,14 @@ const Sudionik = ({ sudionik }: Props) => {
           render={({field: {onChange, onBlur, value}}) => (
             <TextField
               style={{ width: "100%" }}
-              label="Grad"
-              required
+              label="Grad *"
 
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.grad}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.grad`}/>}
             />
           )}
         />
@@ -146,6 +163,9 @@ const Sudionik = ({ sudionik }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.kontaktOsoba}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.kontaktOsoba`}/>}
             />
           )}
         />
@@ -163,6 +183,9 @@ const Sudionik = ({ sudionik }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.email}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.email`}/>}
             />
           )}
         />
@@ -180,6 +203,9 @@ const Sudionik = ({ sudionik }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.telefon}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.telefon`}/>}
             />
           )}
         />
@@ -201,6 +227,9 @@ const Sudionik = ({ sudionik }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.pib}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.PIB`}/>}
             />
           )}
         />
@@ -218,6 +247,9 @@ const Sudionik = ({ sudionik }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.ibt}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.IBT`}/>}
             />
           )}
         />
@@ -235,6 +267,9 @@ const Sudionik = ({ sudionik }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.rbt}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.RBT`}/>}
             />
           )}
         />
@@ -252,6 +287,9 @@ const Sudionik = ({ sudionik }: Props) => {
               onChange={onChange}
               onBlur={onBlur}
               value={value}
+
+              error={!!sudionikErrors?.djelatnost}
+              helperText={<ErrorMessage errors={errors} name={`${sudionik}.djelatnost`}/>}
             />
           )}
         />

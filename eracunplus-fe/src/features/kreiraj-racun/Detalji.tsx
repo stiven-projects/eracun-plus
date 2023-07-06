@@ -1,5 +1,6 @@
 import {
   Divider,
+  FormHelperText,
   Grid,
   Paper,
   Select,
@@ -11,12 +12,14 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 
 import { memo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
+import { Controller, useFormContext, useFormState } from "react-hook-form";
 import FormDatePicker from "../../components/form-items/FormDatePicker";
+import { ErrorMessage } from "@hookform/error-message";
 
 const Detalji = () => {
 
   const { control } = useFormContext();
+  const { errors } = useFormState({control});
 
   return (
     <Grid container spacing={2}>
@@ -38,11 +41,13 @@ const Detalji = () => {
                 render={({ field: { onChange, onBlur, value } }) => (
                   <TextField
                     style={{ width: "100%" }}
-                    label="Broj računa"
-                    required
+                    label="Broj računa *"
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
+
+                    error={!!errors?.brojRacuna}
+                    helperText={<ErrorMessage errors={errors} name={`brojRacuna`}/>}
                   />
                 )}
               />
@@ -53,11 +58,18 @@ const Detalji = () => {
                 control={control}
                 name="datumIzdavanja"
                 render={({ field: { onChange, value } }) => (
-                  <FormControl fullWidth required>
+                  <FormControl fullWidth>
                     <FormDatePicker
                       label="Datum izdavanja *"
                       onChange={onChange}
                       value={value}
+
+                      slotProps={{
+                        textField: {
+                          error: !!errors?.datumIzdavanja,
+                          helperText: <ErrorMessage errors={errors} name={`datumIzdavanja`}/>
+                        }
+                      }}
                     />
                   </FormControl>
                 )}
@@ -74,6 +86,13 @@ const Detalji = () => {
                       label="Rok plaćanja"
                       onChange={onChange}
                       value={value}
+
+                      slotProps={{
+                        textField: {
+                          error: !!errors?.rokPlacanja,
+                          helperText: <ErrorMessage errors={errors} name={`rokPlacanja`}/>
+                        }
+                      }}
                     />
                   </FormControl>
                 )}
@@ -85,8 +104,8 @@ const Detalji = () => {
                 control={control}
                 name="valuta"
                 render={({ field: { onChange, onBlur, value } }) => (
-                  <FormControl fullWidth required>
-                    <InputLabel id="valuta">Valuta</InputLabel>
+                  <FormControl fullWidth error={!!errors?.valuta}>
+                    <InputLabel id="valuta">Valuta *</InputLabel>
                     <Select
                       labelId="valuta-label"
                       id="valuta"
@@ -98,6 +117,7 @@ const Detalji = () => {
                       <MenuItem value={1}>HRK</MenuItem>
                       <MenuItem value={2}>EUR</MenuItem>
                     </Select>
+                    <ErrorMessage errors={errors} name={`valuta`} as={<FormHelperText />}/>
                   </FormControl>
                 )}
               />
@@ -115,6 +135,9 @@ const Detalji = () => {
                     onChange={onChange}
                     onBlur={onBlur}
                     value={value}
+
+                    error={!!errors?.opis}
+                    helperText={<ErrorMessage errors={errors} name={`opis`}/>}
                   />
                 )}
               />
