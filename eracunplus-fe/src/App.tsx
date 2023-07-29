@@ -6,16 +6,19 @@ import { RouterProvider } from "react-router";
 import { queryClient } from './lib/queryClient';
 import { router } from './routes/router';
 import { store } from './stores/store';
+import { SnackbarProvider } from 'notistack';
 
 function App() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      </QueryClientProvider>
-    </Provider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <SnackbarProvider>
+            <RouterProvider router={router} />
+          </SnackbarProvider>
+        </QueryClientProvider>
+      </Provider>
     </LocalizationProvider>
   );
 }

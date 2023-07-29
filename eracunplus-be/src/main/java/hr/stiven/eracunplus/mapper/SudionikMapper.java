@@ -19,9 +19,9 @@ public class SudionikMapper {
 	            .kontaktOsoba(sudionikEntity.getKontaktOsoba())
 	            .email(sudionikEntity.getEmail())
 	            .telefon(sudionikEntity.getTelefon())
-	            .PIB(sudionikEntity.getPIB())
-	            .IBT(sudionikEntity.getIBT())
-	            .RBT(sudionikEntity.getRBT())
+	            .pib(sudionikEntity.getPIB())
+	            .ibt(sudionikEntity.getIBT())
+	            .rbt(sudionikEntity.getRBT())
 	            .djelatnost(sudionikEntity.getDjelatnost())
 				.build();
 	}

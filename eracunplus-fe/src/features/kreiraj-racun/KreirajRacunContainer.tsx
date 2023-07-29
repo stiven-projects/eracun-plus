@@ -4,6 +4,8 @@ import { FieldValues, useForm } from "react-hook-form";
 import { axiosInstance } from "../../lib/axios";
 import KreirajRacunLayout from "./KreirajRacunLayout";
 import { schema } from "./schemas/ValidationSchema";
+import { useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 
 function toStavke(stavke?: any[]){
   if(!stavke) return [];
@@ -19,6 +21,8 @@ const KreirajRacunContainer = () => {
   const methods = useForm({ resolver: yupResolver(schema), mode: "onChange"});
   //const methods = useForm();
 
+  const navigate = useNavigate();
+
   const submit = useCallback((values: FieldValues) => {
     const { datumIzdavanja, rokPlacanja, stavke, ...rest } = values;
     axiosInstance.post("racuni", {
@@ -26,6 +30,9 @@ const KreirajRacunContainer = () => {
       stavke: toStavke(stavke),
       datumIzdavanja: datumIzdavanja?.format("YYYY-MM-DD"),
       rokPlacanja: rokPlacanja?.format("YYYY-MM-DD"),
+    }).then(() => {
+      enqueueSnackbar("Uspješno kreiran račun!", {variant: "success"})
+      navigate("/izlazni");
     });
   }, []);
   

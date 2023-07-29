@@ -18,9 +18,9 @@ public class SudionikEntityMapper {
 	            .kontaktOsoba(sudionik.kontaktOsoba())
 	            .email(sudionik.email())
 	            .telefon(sudionik.telefon())
-	            .PIB(sudionik.PIB())
-	            .IBT(sudionik.IBT())
-	            .RBT(sudionik.RBT())
+	            .PIB(sudionik.pib())
+	            .IBT(sudionik.ibt())
+	            .RBT(sudionik.rbt())
 	            .djelatnost(sudionik.djelatnost())
 	            .build();
 	}
